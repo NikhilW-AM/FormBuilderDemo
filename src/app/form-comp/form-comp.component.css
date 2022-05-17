@@ -1,0 +1,10 @@
+.form-group {
+  margin: 20px 0;
+  width: 50%;
+}
+.container {
+  margin: 0px 30px;
+}
+.form-check {
+  display: flex;
+}

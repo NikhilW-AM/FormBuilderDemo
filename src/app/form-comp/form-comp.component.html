@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h2>Form</h2>
+  </div>
+  <form [formGroup]="updateForm" *ngIf="this.updateForm" (ngSubmit)="submit()">
+    {{ updateForm.value | json }}
+    <div *ngFor="let item of formValue">
+      <div class="form-group">
+        <label for="exampleInputEmail1">{{ item.lable }}</label>
+        <ng-container *ngIf="item.fieldType === 'text'">
+          <input [type]="item.fieldType" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Lable name" [formControlName]="item.name" [name]="item.name" />
+        </ng-container>
+        <ng-container *ngIf="item.fieldType === 'textarea'">
+          <textarea class="form-control" name="" id="" cols="30" rows="2" [formControlName]="item.name"
+            [name]="item.name"></textarea>
+        </ng-container>
+
+        <ng-container *ngIf="item.fieldType === 'radio'">
+          <div class="form-check" *ngFor="let val of item.options.split(',')">
+            <input type="radio" class="form-check-input" id="check1" [value]="val" [formControlName]="item.name"
+              [name]="item.name" />
+            <label class="form-check-label" for="check1">{{ val }}</label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="item.fieldType === 'checkbox'">
+          <div class="form-check" *ngFor="let val of item.options.split(',')">
+            <input type="checkbox" class="form-check-input" id="check1" [value]="val"
+              (change)="onCheckChange($event,item.name)" />
+            <label class="form-check-label" for="check1">{{ val }}</label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="item.fieldType === 'select'">
+          <select class="form-control form-select custom-select" [formControlName]="item.name" [name]="item.name">
+            <option hidden style="color:gray">select</option>
+            <option *ngFor="let val of item.options.split(',')">{{val}}</option>
+          </select>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+  </form>
+</div>
